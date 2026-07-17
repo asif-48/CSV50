@@ -1,79 +1,240 @@
 # CSV50
 
-#### Video Demo:  [https://www.youtube.com/watch?v=aC1IX4-noSM](https://www.youtube.com/watch?v=aC1IX4-noSM)
+A Python-based CSV dataset analysis tool that automatically generates useful summaries of a dataset before further analysis.
 
-#### Description:
+## Video Demo
 
-The name of this project is CSV50. The goal of this project was to take any dataset as a csv file and then output a text file consisting of various summaries and general information about the dataset that can be helpful for getting an overview of the dataset before jumping onto the further analyses that can be done upon it. It is mainly a very basic tool for data analysis built using the Pandas library in Python. Let us go through the various functions of the project in the project.py file.
-
----
-
-### `is_csv()`
-
-This function takes the system path for any file and checks its validity making use of some string based function in python. While this may seem a simple function, it is essential for the next steps of the code. Originally it also used the os library to check if the file actually existed or not, but due to complications in testing, this functionality was moved over to main function.
+[Watch the demo video](https://www.youtube.com/watch?v=aC1IX4-noSM)
 
 ---
 
-### `load_csv()`
+## Description
 
-This block takes the valid csv file and then uses the pandas library to turn it into a dataframe (df), which is the pandas equivalent of a csv file upon which a myriad of data analysis can be done. It also reports back if the file is empty or not; if yes, the program exits upon stating it.
+CSV50 is a basic data analysis tool built using Python and the Pandas library.
 
----
+The goal of this project is to take any dataset in CSV format and generate a text report containing useful information about the dataset before performing further analysis.
 
-### `clean_column_name()`
-
-This block takes the names of the columns in the dataset and strips any unnecessary whitespaces and replaces spaces between words with underscores. While initially it took all of the columns at once, for ease of testing I opted for single column names taken from the main function and then updated the names of the columns in the dataframe.
-
----
-
-### `get_overview()`
-
-Here we arrive at the first major summarizing function. This function takes the df and outputs the first few lines of it, and a bunch of general information about the data such as number of rows and columns, columns’ names and datatypes, number of NaN/Null values and duplicate rows, and compiles all of this into a string and reports it back to the main function.
+The generated report includes:
+- General dataset information
+- Numerical summaries
+- Categorical summaries
+- Data quality information
 
 ---
 
-### `numeric_summary()`
+# Features
 
-This function takes the dataframe, selects any of the columns that have numerical data associated with them and then outputs a statistical summary containing very basic information such as mean, median and data at various percentiles, i.e 25, 50, 75 etc. More detail could have been added to this function, but since this is a very general tool, I did not yet understand how to go into specifics.
-
----
-
-### `categorical_summary()`
-
-Since we have a numeric summary, a categorical summary was only appropriate. This function selects columns of `"object"`, `"category"`, `"bool"` or `"string"` type and outputs unique values, most common values, and their frequencies for each column. This function was the most challenging for me to implement because it required good knowledge of how the outputs in pandas worked and the formatting of the outputs of various methods in pandas.
-
----
-
-### `save_file()`
-
-This was a simple function to implement, whereby it took the various outputs from the above functions and stored it into a report text file, joining them using `'\n' + '\n'` to separate each of the summaries from one another.
+- CSV file validation
+- CSV file loading using Pandas
+- Dataset overview generation
+- Column name cleaning
+- Numerical statistical summary
+- Categorical data summary
+- Automatic report generation
+- Unit testing using Pytest
 
 ---
 
-### `main()`
+# Technologies Used
 
-This is the function which calls upon each of the custom functions. It checks whether the file exists and is valid or not, then whether the file is empty or not, then cleans the column names, gets the overview, gets the numeric summary and categorical summary, and finally saves all the information in a text file.
-
----
-
-Now let us go through the various functions of the project in the `test_project.py` file.
-
-As per the final project requirement, this tests 3 helper functions of the project. My chosen functions are the `is_csv()`, `clean_column_name()` and `numeric_summary()` functions.
+- Python
+- Pandas
+- Pytest
 
 ---
 
-### `test_is_csv()`
+# Installation
 
-Checks for valid and invalid csv file names and verifies Boolean outputs as required.
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/CSV50.git
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-### `test_clean_column_name()`
+# Running the Project
 
-Checks if the column names are being properly cleaned and formatted for a standard look.
+Run:
+
+```bash
+python project.py
+```
+
+Enter the path of a CSV file when prompted.
+
+Example:
+
+```
+Enter the path of the csv file to be analysed:
+sample_data.csv
+```
+
+The program generates:
+
+```
+report.txt
+```
+
+containing dataset information and statistical summaries.
 
 ---
 
-### `test_numeric_summary()`
+# Project Functions
 
-Checks if the function is properly selecting the numeric columns, generating a summary, and whether the output contains the expected summary fields.
+## is_csv()
+
+Checks whether the provided file has a valid CSV extension.
+
+It helps ensure that only CSV datasets are processed.
+
+---
+
+## load_csv()
+
+Loads the CSV file using the Pandas library and converts it into a DataFrame.
+
+It also checks whether the dataset is empty before continuing the analysis.
+
+---
+
+## clean_column_name()
+
+Cleans column names by:
+
+- Removing unnecessary spaces
+- Replacing spaces between words with underscores
+
+Example:
+
+```
+Spending Score 1-100
+```
+
+becomes:
+
+```
+Spending_Score_1-100
+```
+
+---
+
+## get_overview()
+
+Generates general information about the dataset, including:
+
+- First few rows
+- Number of rows
+- Number of columns
+- Column names
+- Data types
+- Missing values
+- Duplicate rows
+
+---
+
+## numeric_summary()
+
+Analyzes numerical columns and generates statistical information including:
+
+- Count
+- Mean
+- Standard deviation
+- Percentiles
+- Minimum and maximum values
+
+---
+
+## categorical_summary()
+
+Analyzes categorical columns and provides:
+
+- Number of unique values
+- Most common value
+- Frequency of the most common value
+
+---
+
+## save_file()
+
+Combines all generated summaries and saves them into:
+
+```
+report.txt
+```
+
+---
+
+## main()
+
+The main function controls the complete workflow:
+
+1. Checks CSV validity
+2. Loads the dataset
+3. Cleans column names
+4. Generates dataset overview
+5. Creates numerical and categorical summaries
+6. Saves the final report
+
+---
+
+# Testing
+
+The project includes automated testing using Pytest.
+
+The tested functions are:
+
+## test_is_csv()
+
+Checks valid and invalid CSV file names.
+
+Examples:
+
+- `.csv` files → True
+- Other file types → False
+
+---
+
+## test_clean_column_name()
+
+Checks whether column names are cleaned correctly.
+
+Example:
+
+```
+Price
+Spending_Score_1-100
+CustomerID
+```
+
+---
+
+## test_numeric_summary()
+
+Checks whether numerical columns are correctly selected and whether statistical summaries are generated properly.
+
+---
+
+# Project Structure
+
+```
+CSV50
+
+├── README.md
+├── project.py
+├── test_project.py
+├── requirements.txt
+└── sample_data.csv
+```
+
+---
+
+# Author
+
+Mohammad Asiful Islam
